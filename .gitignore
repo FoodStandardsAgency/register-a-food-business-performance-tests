@@ -10,6 +10,7 @@ yarn.lock
 report.xml
 report.json
 report.json.html
-*_bk.*
+FSA-Performance-tests.iml
+register-a-food-business-performance-tests.iml
 
 
