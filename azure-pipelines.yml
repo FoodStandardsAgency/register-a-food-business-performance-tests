@@ -1,0 +1,33 @@
+# Starter pipeline
+# Start with a minimal pipeline that you can customize to build and deploy your code.
+# Add steps that build, run tests, deploy, and more:
+# https://aka.ms/yaml
+
+pool:
+  vmImage: "Ubuntu 16.04"
+
+steps:
+
+- script: yarn
+  displayName: "Install dependencies"
+
+- script: yarn load
+  displayName: "Baseline Load Test"
+
+- script: yarn soak
+  displayName: "Soak Test"
+
+- script: yarn xmlreport
+  displayName: "Generate XML Report"
+
+- task: PublishTestResults@1
+  inputs:
+    summaryFileLocation: "$(System.DefaultWorkingDirectory)/report.xml"
+    reportDirectory: "$(System.DefaultWorkingDirectory)"
+
+- task: ArchiveFiles@2
+  inputs:
+    rootFolderOrFile: "$(System.DefaultWorkingDirectory)"
+    includeRootFolder: false
+
+- task: PublishBuildArtifacts@1

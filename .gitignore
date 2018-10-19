@@ -1,0 +1,15 @@
+# dependencies
+/node_modules
+
+# misc
+.idea
+.lock
+.iml
+package-lock.json
+yarn.lock
+report.xml
+report.json
+report.json.html
+*_bk.*
+
+

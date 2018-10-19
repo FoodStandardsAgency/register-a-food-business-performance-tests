@@ -1,0 +1,148 @@
+config:
+  plugins:
+    influxdb:
+      testName: 'fsa_load_test'
+      measurementName: 'latency'
+      influx:
+        host: 'jenkins'
+        username: 'admin'
+        password: 'admin'
+        database: 'mydb'
+  target:  "https:/"
+  processor: "./random-fullapplication-payload.js"
+  phases:
+    - duration: '{{ $processEnvironment.duration}}'
+      arrivalRate: 1
+      rampTo: 5
+  variables:
+    apiUrl:
+    - "/{{ $processEnvironment.env }}-register-a-food-business-service.azurewebsites.net/api/registration"
+    uiUrl:
+    - "/{{ $processEnvironment.env }}-register-a-food-business.azurewebsites.net/new/west-dorset"
+    qaUrl:
+    - "/{{ $processEnvironment.env }}-register-a-food-business.azurewebsites.net/qa/west-dorset"
+  defaults:
+    headers:
+      client-name: "register-a-food-business-front-end"
+      api-secret: "{{$processEnvironment.apiSecret}}"
+scenarios:
+- name: "FullApplication Requests"
+  flow:
+  - function: "generateRandomPayload"
+  - post:
+      url: "{{ apiUrl }}/createNewRegistration"
+      json: "{{payload}}"
+  - think: '{{$processEnvironment.thinkTime}}'
+  - get:
+      url: "{{ qaUrl }}/cleansession?QA_KEY={{$processEnvironment.qaKey}}"
+      capture:
+        Cookies: "connect.sid"
+        as: "sessionId"
+  - think: '{{$processEnvironment.thinkTime}}'
+  - get:
+      url: "{{ qaUrl }}/registration-role?QA_KEY={{$processEnvironment.qaKey}}"
+      cookie:
+        connect.sid: "{{ sessionId }}"
+  - think: '{{$processEnvironment.thinkTime}}'
+  - get:
+      url: "{{ qaUrl }}/operator-type?QA_KEY={{$processEnvironment.qaKey}}&operator_type=A%20company"
+      cookie:
+        connect.sid: "{{ sessionId }}"
+  - think: '{{$processEnvironment.thinkTime}}'
+  - get:
+      url: "{{ qaUrl }}/operator-company-details?QA_KEY={{$processEnvironment.qaKey}}&operator_company_name=jocompany&operator_company_house_number=AA123456"
+      cookie:
+        connect.sid: "{{ sessionId }}"
+  - think: '{{$processEnvironment.thinkTime}}'
+  - get:
+      url: "{{ qaUrl }}/operator-charity-details?QA_KEY={{$processEnvironment.qaKey}}&operator_charity-name=jo"
+      cookie:
+        connect.sid: "{{ sessionId }}"
+  - think: '{{$processEnvironment.thinkTime}}'
+  - get:
+      url: "{{ qaUrl }}/operator-name?QA_KEY={{$processEnvironment.qaKey}}&operator-name=jo"
+      cookie:
+        connect.sid: "{{ sessionId }}"
+  - think: '{{$processEnvironment.thinkTime}}'
+  - get:
+      url: "{{ qaUrl }}/operator-address?QA_KEY={{$processEnvironment.qaKey}}&operator_postcode_find=gu168rw"
+      cookie:
+        connect.sid: "{{ sessionId }}"
+  - think: '{{$processEnvironment.thinkTime}}'
+  - get:
+      url: "{{ qaUrl }}/operator-address-select?QA_KEY={{$processEnvironment.qaKey}}&operator_address_selected=0"
+      cookie:
+        connect.sid: "{{ sessionId }}"
+  - think: '{{$processEnvironment.thinkTime}}'
+  - get:
+      url: "{{ qaUrl }}/operator-address-select?QA_KEY={{$processEnvironment.qaKey}}&operator_address_selected=1"
+      cookie:
+        connect.sid: "{{ sessionId }}"
+  - think: '{{$processEnvironment.thinkTime}}'
+  - get:
+      url: "{{ qaUrl }}/operator-address-manual?QA_KEY={{$processEnvironment.qaKey}}&operator_first_line=24&operator_postcode=gu168rw"
+      cookie:
+        connect.sid: "{{ sessionId }}"
+  - think: '{{$processEnvironment.thinkTime}}'
+  - get:
+      url: "{{ qaUrl }}/establishment-trading-name?QA_KEY={{$processEnvironment.qaKey}}&establishment_trading_name=jo"
+      cookie:
+        connect.sid: "{{ sessionId }}"
+  - think: '{{$processEnvironment.thinkTime}}'
+  - get:
+      url: "{{ qaUrl }}/establishment-address-type?QA_KEY={{$processEnvironment.qaKey}}&establishment_type=Mobile%2Bor%2Bmoveable%2Bpremises"
+      cookie:
+        connect.sid: "{{ sessionId }}"
+  - think: '{{$processEnvironment.thinkTime}}'
+  - get:
+      url: "{{ qaUrl }}/establishment-contact-details?QA_KEY={{$processEnvironment.qaKey}}&establishment_primary_number=1111111111&establishment_email=jo@email.com"
+      cookie:
+        connect.sid: "{{ sessionId }}"
+  - think: '{{$processEnvironment.thinkTime}}'
+  - get:
+      url: "{{ qaUrl }}/establishment-opening-status?QA_KEY={{$processEnvironment.qaKey}}&establishment_opening_status=Establishment%2Bis%2Balready%2Btrading"
+      cookie:
+        connect.sid: "{{ sessionId }}"
+  - think: '{{$processEnvironment.thinkTime}}'
+  - get:
+      url: "{{ qaUrl }}/establishment-opening-date-proactive?QA_KEY={{$processEnvironment.qaKey}}&day=10&month=10&year=2020"
+      cookie:
+        connect.sid: "{{ sessionId }}"
+  - think: '{{$processEnvironment.thinkTime}}'
+  - get:
+      url: "{{ qaUrl }}/establishment-opening-date-retroactive?QA_KEY={{$processEnvironment.qaKey}}&day=10&month=10&year=2000"
+      cookie:
+        connect.sid: "{{ sessionId }}"
+  - think: '{{$processEnvironment.thinkTime}}'
+  - get:
+      url: "{{ qaUrl }}/customer-type?QA_KEY={{$processEnvironment.qaKey}}&supply_other=It%2Bwill%2Bsupply%2Bfood%2Bto%2Bother%2Bbusinesses%2Bto%20process%2C%2Bsell%2Bor%2Bserve"
+      cookie:
+        connect.sid: "{{ sessionId }}"
+  - think: '{{$processEnvironment.thinkTime}}'
+  - get:
+      url: "{{ qaUrl }}/business-type?QA_KEY={{$processEnvironment.qaKey}}&business_type=Bakery%2B(cake)"
+      cookie:
+        connect.sid: "{{ sessionId }}"
+  - think: '{{$processEnvironment.thinkTime}}'
+  - get:
+      url: "{{ qaUrl }}/business-import-expor?QA_KEY={{$processEnvironment.qaKey}}&directly_import=Directly%2Bimport"
+      cookie:
+        connect.sid: "{{ sessionId }}"
+  - think: '{{$processEnvironment.thinkTime}}'
+  - get:
+      url: "{{ qaUrl }}/declaration"
+      cookie:
+        connect.sid: "{{ sessionId }}"
+  - think: '{{$processEnvironment.thinkTime}}'
+  - get:
+      url: "{{ qaUrl }}/registration-summary?QA_KEY={{$processEnvironment.qaKey}}&{{registrationsummarypathparam}}"
+      cookie:
+        connect.sid: "{{ sessionId }}"
+  - think: '{{$processEnvironment.thinkTime}}'
+  - get:
+      url: "{{ qaUrl }}/declaration?QA_KEY={{$processEnvironment.qaKey}}&{{declarationpathparam}}"
+      cookie:
+        connect.sid: "{{ sessionId }}"
+  - think: '{{$processEnvironment.thinkTime}}'
+
+

@@ -1,0 +1,7 @@
+version: '3'
+services:
+  fsa_perf:
+    image: fsa_perf:latest
+    deploy:
+      mode: replicated
+      replicas: 2

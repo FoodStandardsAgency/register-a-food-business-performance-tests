@@ -1,0 +1,53 @@
+{
+  "name": "fsa-performance-tests",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "start": "node ./bin/www",
+    "load": "./node_modules/artillery/bin/artillery run -o report.json fullapplication-test.yaml",
+    "soak": "./node_modules/artillery/bin/artillery run -o report.json --overrides '{\"config\": {\"phases\": [{\"duration\": 3600, \"arrivalRate\": 5}]}}' fullapplication-test.yaml",
+    "report": "./node_modules/artillery/bin/artillery report report.json",
+    "xmlreport": "node json2xml.js",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "sonaranalysis": "grunt sonarRunner:analysis"
+  },
+  "keywords": [
+    "load-test"
+  ],
+  "devDependencies": {
+    "artillery-plugin-uuid": "^0.0.1",
+    "cookie-parser": "~1.4.3",
+    "debug": "~2.6.9",
+    "faker": "^4.1.0",
+    "grunt": "^1.0.3",
+    "grunt-cli": "^1.3.1",
+    "grunt-contrib-jshint": "^2.0.0",
+    "grunt-sonar-runner": "github:AllSpeeds/grunt-sonar-runner#maxbuffer-fix",
+    "http-errors": "~1.6.2",
+    "js2xmlparser": "^3.0.0",
+    "morgan": "~1.9.0",
+    "pug": "2.0.0-beta11",
+    "randomstring": "^1.1.5",
+    "test": ">=0.6.0",
+    "uuid": "3.2.1",
+    "xml2js": "^0.4.19",
+    "xmlbuilder": "^10.1.0"
+  },
+  "dependencies": {
+    "artillery": "^1.6.0-22",
+    "artillery-core": "^4.8.1",
+    "artillery-plugin-influxdb": "^0.9.0",
+    "csv-parse": "^3.1.3",
+    "dotenv": "4.0.0",
+    "express": "4.16.2",
+    "global": "4.3.2",
+    "influx": "^5.0.7",
+    "winston": "2.4.2"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/slice-and-dice/register-a-food-business-performance-tests.git"
+  },
+  "author": "",
+  "license": "ISC"
+}
