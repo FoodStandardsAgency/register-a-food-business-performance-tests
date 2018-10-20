@@ -33,7 +33,7 @@ scenarios:
       url: "{{ apiUrl }}/createNewRegistration"
       json: "{{payload}}"
       capture:
-        json: "$.fsa-rn"
+        json: "$.\"fsa-rn\""
         as: fsa_rn
   - log: "response - {{fsa_rn}}"
   - think: '{{$processEnvironment.thinkTime}}'
