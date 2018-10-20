@@ -52,6 +52,8 @@ node() {
             checkout scm
             withEnv(["APISECRET=${env.FRONT_END_SECRET}",
                         "QAKEY='${env.QA_KEY_DECODED}'",
+                        "SONARTOKEN='${env.SONAR_TOKEN}'",
+                        "SONARORGANISATION='${env.SONAR_ORGANISATION}'",
                         "Duration='${env.Duration}'",
                         "Thinktime='${env.Thinktime}'",
                         "ArrivalRate='${env.ArrivalRate}'",
@@ -61,6 +63,8 @@ node() {
                             sh "docker build -t ${docker_tag} \
                             --build-arg APISECRET=$APISECRET \
                             --build-arg QAKEY=$QAKEY \
+                            --build-arg SOANRTOKEN=$SONARTOKEN \
+                            --build-arg SONARORGANISATION=$SONARORGANISATION \
                             --build-arg DURATION=$Duration \
                             --build-arg THINKTIME=$Thinktime \
                             --build-arg RAMPTO=$Rampto \

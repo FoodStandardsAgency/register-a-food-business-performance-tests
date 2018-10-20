@@ -1,7 +1,0 @@
-organization=jennyoughibm-github
-projectKey=fsa-performance-tests
-serverUrl=https://sonarcloud.io
-serverVersion=7.4.0.18617
-dashboardUrl=https://sonarcloud.io/dashboard?id=fsa-performance-tests
-ceTaskId=AWaN_U46stHImv5SYpUa
-ceTaskUrl=https://sonarcloud.io/api/ce/task?id=AWaN_U46stHImv5SYpUa

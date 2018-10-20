@@ -9,13 +9,13 @@
     "report": "./node_modules/artillery/bin/artillery report report.json",
     "xmlreport": "node json2xml.js",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "sonaranalysis": "grunt sonarRunner:analysis"
+    "sonaranalysis": "grunt sonarRunner:analysis",
+    "sonarcloud": "gulp"
   },
   "keywords": [
     "load-test"
   ],
   "devDependencies": {
-    "@slice-and-dice/register-a-food-UI-tests": "https://github.com/FoodStandardsAgency/register-a-food-business-UI-tests.git",
     "artillery-plugin-uuid": "^0.0.1",
     "cookie-parser": "~1.4.3",
     "debug": "~2.6.9",

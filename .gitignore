@@ -5,6 +5,7 @@
 .idea
 .lock
 .iml
+.scannerwork
 package-lock.json
 yarn.lock
 report.xml

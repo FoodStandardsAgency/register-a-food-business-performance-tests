@@ -30,17 +30,20 @@ config:
 scenarios:
 - name: "FullApplication Requests"
   flow:
-  - log: "arrivalRate is - {{ $processEnvironment.arrivalRate}}; rampTo is - {{ $processEnvironment.rampTo}}"
   - function: "generateRandomPayload"
   - post:
       url: "{{ apiUrl }}/createNewRegistration"
       json: "{{payload}}"
+        capture:
+        - json: "$"
+          as: response
+  - log: "response is {{ response }}"
   - think: '{{$processEnvironment.thinkTime}}'
   - get:
       url: "{{ qaUrl }}/cleansession?QA_KEY={{$processEnvironment.qaKey}}"
       capture:
         Cookies: "connect.sid"
-        as: "sessionId"
+        as: sessionId
   - think: '{{$processEnvironment.thinkTime}}'
   - get:
       url: "{{ qaUrl }}/registration-role?QA_KEY={{$processEnvironment.qaKey}}"
