@@ -32,10 +32,6 @@ scenarios:
   - post:
       url: "{{ apiUrl }}/createNewRegistration"
       json: "{{payload}}"
-      capture:
-        json: "$.regId"
-        as: regId
-  - log: "response - {{regId}}"
   - think: '{{$processEnvironment.thinkTime}}'
   - get:
       url: "{{ uiUrl }}"
