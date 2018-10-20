@@ -56,9 +56,8 @@ node() {
                         "SONARORGANISATION='${env.SONAR_ORGANISATION}'",
                         "Duration='${env.Duration}'",
                         "Thinktime='${env.Thinktime}'",
-                        "ArrivalRate='${env.ArrivalRate}'",
-                        "Thinktime='${env.Thinktime}'",
-                        "RampTo=${env.RampTo}"])
+                        "ENVIRONMENT='{env.Environment}'"
+                       ])
                         {
                             sh "docker build -t ${docker_tag} \
                             --build-arg APISECRET=$APISECRET \
@@ -67,8 +66,6 @@ node() {
                             --build-arg SONARORGANISATION=$SONARORGANISATION \
                             --build-arg DURATION=$Duration \
                             --build-arg THINKTIME=$Thinktime \
-                            --build-arg RAMPTO=$Rampto \
-                            --build-arg ARRIVALRATE=$ArrivalRate \
                             --build-arg ENVIRONMENT=$ENVIRONMENT \
                             -f Dockerfile ."
                         }

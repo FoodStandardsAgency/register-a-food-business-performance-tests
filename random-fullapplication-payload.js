@@ -39,7 +39,7 @@ function generateRandomPayload( userContext, events, done) {
         "operator_first_line": "335",
         "operator_street": "Some St.",
         "operator_town": "London",
-        "operator_primary_number": "9827235",
+        "operator_primary_number": 9827235,
         "operator_email": "fsatestemail.valid@gmail.com",
         "operator_type": "Sole trader"
     };
@@ -50,7 +50,7 @@ function generateRandomPayload( userContext, events, done) {
     operator.operator_first_line = Faker.address.streetAddress("###");
     operator.operator_street = Faker.address.city();
     operator.operator_town = Faker.address.county();
-    operator.operator_type = Faker.random.number({min: 888888889, max: 999999999});
+    operator.operator_primary_number = Faker.random.number({min: 888888889, max: 999999999});
     operator.operator_email = Faker.internet.email();
     operator.operator_type = Faker.random.arrayElement(["Sole trader", "Sole trader", "Sole trader", "Sole trader", "Sole trader", "Sole trader"]);
 
