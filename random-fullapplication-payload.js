@@ -7,7 +7,7 @@ module.exports = {
 };
 
 function logCookie(req, res, ctx, events, done) {
-    let cookie = res.headers['set-cookie'].split(';')[0].split('=')[1]
+    let cookie = res.headers['set-cookie'].toString().split(';')[0].split('=')[1]
     console.log('set-cookie" %s',cookie) ;
     process.env['cookie'] = cookie;
     return done();
