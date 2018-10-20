@@ -87,6 +87,7 @@ function generateRandomPayload( userContext, events, done) {
     activities.customer_type = Faker.random.arrayElement(["End consumer", "End consumer", "End consumer"]);
 
     var establishment = {
+        "establishment_details":establishment_details,
         "operator": operator,
         "premise": premise,
         "activities": activities

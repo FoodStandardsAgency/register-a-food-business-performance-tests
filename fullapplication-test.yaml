@@ -43,7 +43,7 @@ scenarios:
   - get:
       url: "{{ qaUrl }}/registration-role?QA_KEY={{$processEnvironment.qaKey}}"
       capture:
-        - Cookies: "connect.sid"
+        - cookie: "connect.sid"
           as: sessionId
   - log: "sessionId is {{ sessionId }}"
   - think: '{{$processEnvironment.thinkTime}}'
