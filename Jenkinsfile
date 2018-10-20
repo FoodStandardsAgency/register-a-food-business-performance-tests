@@ -13,7 +13,7 @@ node() {
                   name: 'Environment'
           ),
           choice(
-                choices: ["Baseline", "Stress"].join("\n"),
+                choices: ["Baseline", "Soak"].join("\n"),
                 description: 'Type to run',
                 name: 'TestType'
           ),
@@ -27,10 +27,11 @@ node() {
                 description: 'Think time',
                 name: 'Thinktime'
           )
+
         ]),pipelineTriggers([
                      parameterizedCron('''
-                       01 11 * * * % Environment=test
-                       01 12 * * * % Environment=staging
+                       30 11 * * * % Environment=test
+                       30 12 * * * % Environment=staging
                    ''')
                ]),
         disableConcurrentBuilds()
@@ -41,18 +42,13 @@ node() {
             checkout scm
             withEnv(["APISECRET=${env.FRONT_END_SECRET}",
                         "QAKEY='${env.QA_KEY_DECODED}'",
-                        "SONARTOKEN='${env.SONAR_TOKEN}'",
-                        "SONARORGANISATION='${env.SONAR_ORGANISATION}'",
                         "Duration='${env.Duration}'",
                         "Thinktime='${env.Thinktime}'",
-                        "ENVIRONMENT='{env.Environment}'"
-                       ])
+                        "ENVIRONMENT=${env.Environment}"])
                         {
                             sh "docker build -t ${docker_tag} \
                             --build-arg APISECRET=$APISECRET \
                             --build-arg QAKEY=$QAKEY \
-                            --build-arg SOANRTOKEN=$SONARTOKEN \
-                            --build-arg SONARORGANISATION=$SONARORGANISATION \
                             --build-arg DURATION=$Duration \
                             --build-arg THINKTIME=$Thinktime \
                             --build-arg ENVIRONMENT=$ENVIRONMENT \
@@ -65,7 +61,7 @@ node() {
                  case "Baseline":
                      sh "docker run --volume ${PWD}/reports:/mnt ${docker_tag}"
                      break
-                 case "Stress":
+                 case "Soak":
                      sh "docker-compose up"
                      break
                     }
