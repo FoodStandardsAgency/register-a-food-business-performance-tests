@@ -34,7 +34,8 @@
     "test": ">=0.6.0",
     "uuid": "3.2.1",
     "xml2js": "^0.4.19",
-    "xmlbuilder": "^10.1.0"
+    "xmlbuilder": "^10.1.0",
+    "@slice-and-dice/register-a-food-business-validation": "1.13.1",
   },
   "dependencies": {
     "artillery": "^1.6.0-22",

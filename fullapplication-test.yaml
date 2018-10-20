@@ -12,8 +12,8 @@ config:
   processor: "./random-fullapplication-payload.js"
   phases:
     - duration: '{{ $processEnvironment.duration}}'
-      arrivalRate: '{{ $processEnvironment.arrivalRate}}'
-      rampTo: '{{ $processEnvironment.rampTo}}'
+      arrivalRate: 1
+      rampTo: 5
   variables:
     apiUrl:
     - "/{{ $processEnvironment.env }}-register-a-food-business-service.azurewebsites.net/api/registration"
@@ -30,6 +30,7 @@ config:
 scenarios:
 - name: "FullApplication Requests"
   flow:
+  - log: "arrivalRate is - {{ $processEnvironment.arrivalRate}}; rampTo is - {{ $processEnvironment.rampTo}}"
   - function: "generateRandomPayload"
   - post:
       url: "{{ apiUrl }}/createNewRegistration"
