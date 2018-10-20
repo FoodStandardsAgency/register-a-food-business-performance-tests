@@ -13,7 +13,7 @@ node() {
                   name: 'Environment'
           ),
           choice(
-                choices: ["Baseline", "Soak"].join("\n"),
+                choices: ["Baseline", "Stress"].join("\n"),
                 description: 'Type to run',
                 name: 'TestType'
           ),
@@ -26,12 +26,22 @@ node() {
                 choices: ["10", "30"].join("\n"),
                 description: 'Think time',
                 name: 'Thinktime'
+          ),
+          choice(
+                  choices: ["1", "5", "10"].join("\n"),
+                  description: 'Virtual Users Arrival Rate',
+                  name: 'ArrivalRate'
+          ),
+          choice(
+                choices: ["5", "10", "30", "100"].join("\n"),
+                description: 'Number of Virtual Users Ramp To',
+                name: 'RampTo'
           )
 
         ]),pipelineTriggers([
                      parameterizedCron('''
-                       30 11 * * * % Environment=test
-                       30 12 * * * % Environment=staging
+                       01 11 * * * % Environment=test
+                       01 12 * * * % Environment=staging
                    ''')
                ]),
         disableConcurrentBuilds()
@@ -44,13 +54,17 @@ node() {
                         "QAKEY='${env.QA_KEY_DECODED}'",
                         "Duration='${env.Duration}'",
                         "Thinktime='${env.Thinktime}'",
-                        "ENVIRONMENT=${env.Environment}"])
+                        "ArrivalRate='${env.ArrivalRate}'",
+                        "Thinktime='${env.Thinktime}'",
+                        "RampTo=${env.RampTo}"])
                         {
                             sh "docker build -t ${docker_tag} \
                             --build-arg APISECRET=$APISECRET \
                             --build-arg QAKEY=$QAKEY \
                             --build-arg DURATION=$Duration \
                             --build-arg THINKTIME=$Thinktime \
+                            --build-arg RAMPTO=$Rampto \
+                            --build-arg ARRIVALRATE=$ArrivalRate \
                             --build-arg ENVIRONMENT=$ENVIRONMENT \
                             -f Dockerfile ."
                         }
@@ -61,7 +75,7 @@ node() {
                  case "Baseline":
                      sh "docker run --volume ${PWD}/reports:/mnt ${docker_tag}"
                      break
-                 case "Soak":
+                 case "Stress":
                      sh "docker-compose up"
                      break
                     }

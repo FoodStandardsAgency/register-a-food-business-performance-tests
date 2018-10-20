@@ -12,8 +12,8 @@ config:
   processor: "./random-fullapplication-payload.js"
   phases:
     - duration: '{{ $processEnvironment.duration}}'
-      arrivalRate: 1
-      rampTo: 5
+      arrivalRate: '{{ $processEnvironment.arrivalRate}}'
+      rampTo: '{{ $processEnvironment.rampTo}}'
   variables:
     apiUrl:
     - "/{{ $processEnvironment.env }}-register-a-food-business-service.azurewebsites.net/api/registration"
@@ -25,6 +25,8 @@ config:
     headers:
       client-name: "register-a-food-business-front-end"
       api-secret: "{{$processEnvironment.apiSecret}}"
+    https:
+      followRedirects: false
 scenarios:
 - name: "FullApplication Requests"
   flow:
@@ -144,5 +146,118 @@ scenarios:
       cookie:
         connect.sid: "{{ sessionId }}"
   - think: '{{$processEnvironment.thinkTime}}'
+  - get:
+      url: "{{ uiUrl }}/cleansession"
+      capture:
+        Cookies: "connect.sid"
+        as: "sessionId"
+  - think: '{{$processEnvironment.thinkTime}}'
+  - get:
+      url: "{{ uiUrl }}/registration-role"
+      cookie:
+        connect.sid: "{{ sessionId }}"
+  - think: '{{$processEnvironment.thinkTime}}'
+  - get:
+      url: "{{ uiUrl }}/operator-type"
+      cookie:
+        connect.sid: "{{ sessionId }}"
+  - think: '{{$processEnvironment.thinkTime}}'
+  - get:
+      url: "{{ uiUrl }}/operator-company-details"
+      cookie:
+        connect.sid: "{{ sessionId }}"
+  - think: '{{$processEnvironment.thinkTime}}'
+  - get:
+      url: "{{ uiUrl }}/operator-charity-details"
+      cookie:
+        connect.sid: "{{ sessionId }}"
+  - think: '{{$processEnvironment.thinkTime}}'
+  - get:
+      url: "{{ uiUrl }}/operator-name"
+      cookie:
+        connect.sid: "{{ sessionId }}"
+  - think: '{{$processEnvironment.thinkTime}}'
+  - get:
+      url: "{{ uiUrl }}/operator-address"
+      cookie:
+        connect.sid: "{{ sessionId }}"
+  - think: '{{$processEnvironment.thinkTime}}'
+  - get:
+      url: "{{ uiUrl }}/operator-address-select&operator_address_selected=0"
+      cookie:
+        connect.sid: "{{ sessionId }}"
+  - think: '{{$processEnvironment.thinkTime}}'
+  - get:
+      url: "{{ uiUrl }}/operator-address-select&operator_address_selected=1"
+      cookie:
+        connect.sid: "{{ sessionId }}"
+  - think: '{{$processEnvironment.thinkTime}}'
+  - get:
+      url: "{{ uiUrl }}/operator-address-manual"
+      cookie:
+        connect.sid: "{{ sessionId }}"
+  - think: '{{$processEnvironment.thinkTime}}'
+  - get:
+      url: "{{ uiUrl }}/establishment-trading-name"
+      cookie:
+        connect.sid: "{{ sessionId }}"
+  - think: '{{$processEnvironment.thinkTime}}'
+  - get:
+      url: "{{ uiUrl }}/establishment-address-type"
+      cookie:
+        connect.sid: "{{ sessionId }}"
+  - think: '{{$processEnvironment.thinkTime}}'
+  - get:
+      url: "{{ uiUrl }}/establishment-contact-details"
+      cookie:
+        connect.sid: "{{ sessionId }}"
+  - think: '{{$processEnvironment.thinkTime}}'
+  - get:
+      url: "{{ uiUrl }}/establishment-opening-status"
+      cookie:
+        connect.sid: "{{ sessionId }}"
+  - think: '{{$processEnvironment.thinkTime}}'
+  - get:
+      url: "{{ uiUrl }}/establishment-opening-date-proactive"
+      cookie:
+        connect.sid: "{{ sessionId }}"
+  - think: '{{$processEnvironment.thinkTime}}'
+  - get:
+      url: "{{ uiUrl }}/establishment-opening-date-retroactive"
+      cookie:
+        connect.sid: "{{ sessionId }}"
+  - think: '{{$processEnvironment.thinkTime}}'
+  - get:
+      url: "{{ uiUrl }}/customer-type"
+      cookie:
+        connect.sid: "{{ sessionId }}"
+  - think: '{{$processEnvironment.thinkTime}}'
+  - get:
+      url: "{{ uiUrl }}/business-type"
+      cookie:
+        connect.sid: "{{ sessionId }}"
+  - think: '{{$processEnvironment.thinkTime}}'
+  - get:
+      url: "{{ uiUrl }}/business-import-expor"
+      cookie:
+        connect.sid: "{{ sessionId }}"
+  - think: '{{$processEnvironment.thinkTime}}'
+  - get:
+      url: "{{ uiUrl }}/declaration"
+      cookie:
+        connect.sid: "{{ sessionId }}"
+  - think: '{{$processEnvironment.thinkTime}}'
+  - get:
+      url: "{{ uiUrl }}/registration-summary"
+      cookie:
+        connect.sid: "{{ sessionId }}"
+  - think: '{{$processEnvironment.thinkTime}}'
+  - get:
+      url: "{{ uiUrl }}/declaration}"
+      cookie:
+        connect.sid: "{{ sessionId }}"
+  - think: '{{$processEnvironment.thinkTime}}'
+
+
 
 
