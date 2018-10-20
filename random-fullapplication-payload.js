@@ -17,7 +17,6 @@ function cleanInt(x) {
     return x >= 0 ? Math.floor(x) : Math.ceil(x);
 }
 function generateRandomPayload( userContext, events, done) {
-    process.env['cookie'] = "s%3ApQitsh7bVIjEAQGbgidSzNh8E-bovlEa.%2FSS3d8WV5Hx%2Fdc4z7gVOspZhNRtcHs0CorDT820lZ3Y";
     let env = process.env.env;
     let apiSecret = process.env.apiSecret;
     let qaKey = process.env.qaKey;
