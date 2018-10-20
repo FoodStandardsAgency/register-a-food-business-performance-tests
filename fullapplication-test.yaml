@@ -34,21 +34,17 @@ scenarios:
   - post:
       url: "{{ apiUrl }}/createNewRegistration"
       json: "{{payload}}"
-        capture:
+      capture:
         - json: "$"
           as: response
   - log: "response is {{ response }}"
   - think: '{{$processEnvironment.thinkTime}}'
   - get:
-      url: "{{ qaUrl }}/cleansession?QA_KEY={{$processEnvironment.qaKey}}"
-      capture:
-        Cookies: "connect.sid"
-        as: sessionId
-  - think: '{{$processEnvironment.thinkTime}}'
-  - get:
       url: "{{ qaUrl }}/registration-role?QA_KEY={{$processEnvironment.qaKey}}"
-      cookie:
-        connect.sid: "{{ sessionId }}"
+      capture:
+        - Cookies: "connect.sid"
+        as: sessionId
+  - log: "sessionId is {{ sessionId }}"
   - think: '{{$processEnvironment.thinkTime}}'
   - get:
       url: "{{ qaUrl }}/operator-type?QA_KEY={{$processEnvironment.qaKey}}&operator_type=A%20company"
