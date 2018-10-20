@@ -25,10 +25,6 @@ scenarios:
       json: "{{payload}}"
   - think: '{{$processEnvironment.thinkTime}}'
   - get:
-      url: "{{ uiUrl }}"
-      afterResponse: ["logCookie"]
-  - think: '{{$processEnvironment.thinkTime}}'
-  - get:
       url: "{{ qaUrl }}/registration-role?QA_KEY={{$processEnvironment.qaKey}}"
       cookie:
         connect.sid: "{{$processEnvironment.cookie}}"
