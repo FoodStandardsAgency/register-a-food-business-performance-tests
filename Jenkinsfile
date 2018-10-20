@@ -26,18 +26,7 @@ node() {
                 choices: ["10", "30"].join("\n"),
                 description: 'Think time',
                 name: 'Thinktime'
-          ),
-          choice(
-                  choices: ["1", "5", "10"].join("\n"),
-                  description: 'Virtual Users Arrival Rate',
-                  name: 'ArrivalRate'
-          ),
-          choice(
-                choices: ["5", "10", "30", "100"].join("\n"),
-                description: 'Number of Virtual Users Ramp To',
-                name: 'RampTo'
           )
-
         ]),pipelineTriggers([
                      parameterizedCron('''
                        01 11 * * * % Environment=test
