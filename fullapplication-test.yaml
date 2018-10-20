@@ -25,6 +25,7 @@ config:
     headers:
       client-name: "register-a-food-business-front-end"
       api-secret: "{{$processEnvironment.apiSecret}}"
+      content-type: "application/json"
     https:
       followRedirects: false
 scenarios:
@@ -43,7 +44,7 @@ scenarios:
       url: "{{ qaUrl }}/registration-role?QA_KEY={{$processEnvironment.qaKey}}"
       capture:
         - Cookies: "connect.sid"
-        as: sessionId
+          as: sessionId
   - log: "sessionId is {{ sessionId }}"
   - think: '{{$processEnvironment.thinkTime}}'
   - get:
