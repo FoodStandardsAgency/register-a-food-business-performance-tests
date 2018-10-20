@@ -1,13 +1,4 @@
 config:
-  plugins:
-    influxdb:
-      testName: 'fsa_load_test'
-      measurementName: 'latency'
-      influx:
-        host: 'jenkins'
-        username: 'admin'
-        password: 'admin'
-        database: 'mydb'
   target:  "https:/"
   processor: "./random-fullapplication-payload.js"
   phases:
