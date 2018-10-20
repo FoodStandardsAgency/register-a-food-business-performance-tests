@@ -2,8 +2,17 @@
 var Faker = require('faker');
 var randomstring = require("randomstring");
 module.exports = {
-    generateRandomPayload
+    generateRandomPayload : generateRandomPayload,
+    logCookie: logCookie
 };
+
+function logCookie(req, res, ctx, events, done) {
+    let cookie = res.headers['set-cookie'].split(';')[0].split('=')[1]
+    console.log('set-cookie" %s',cookie) ;
+    process.env['cookie'] = cookie;
+    return done();
+}
+
 function cleanInt(x) {
     x = Number(x);
     return x >= 0 ? Math.floor(x) : Math.ceil(x);
