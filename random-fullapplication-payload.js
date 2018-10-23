@@ -37,7 +37,7 @@ function generateRandomPayload( userContext, events, done) {
     establishment_details.establishment_trading_name = Faker.company.companyName();
     establishment_details.establishment_primary_number = Faker.random.number({min: 111111111, max: 555555555})+ '';
     establishment_details.establishment_secondary_number = Faker.random.number({min: 666666666, max: 888888888})+ '';
-    establishment_details.establishment_email = Faker.internet.email();
+    establishment_details.establishment_email = "fsatestemail.valid@gmail.com"
     establishment_details.establishment_opening_date = Faker.date.between('2000-01-01', '2025-12-31');
 
     var operator = {
@@ -59,7 +59,7 @@ function generateRandomPayload( userContext, events, done) {
     operator.operator_street = Faker.address.city();
     operator.operator_town = Faker.address.county();
     operator.operator_primary_number = Faker.random.number({min: 888888889, max: 999999999})+ '';
-    operator.operator_email = Faker.internet.email();
+    operator.operator_email = "fsatestemail.valid@gmail.com"
     operator.operator_type = Faker.random.arrayElement(["Sole trader", "Sole trader", "Sole trader", "Sole trader", "Sole trader", "Sole trader"]);
 
 
