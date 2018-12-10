@@ -38,6 +38,8 @@ node() {
     ])
 
       try {
+        stage('Clean workspace')
+            deleteDir()
         stage('Build Repo')
             checkout scm
             withEnv(["APISECRET=${env.FRONT_END_SECRET}",
