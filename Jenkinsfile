@@ -37,10 +37,9 @@ node() {
         disableConcurrentBuilds()
     ])
 
-      try {
-        stage('Clean workspace')
-            deleteDir()
+      try {  
         stage('Build Repo')
+            deleteDir()
             checkout scm
             withEnv(["APISECRET=${env.FRONT_END_SECRET}",
                         "QAKEY='${env.QA_KEY_DECODED}'",
