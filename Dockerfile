@@ -1,4 +1,4 @@
-FROM node:8.11.1-slim
+FROM node:8.15.1-slim
 
 ARG APISECRET
 ARG QAKEY
