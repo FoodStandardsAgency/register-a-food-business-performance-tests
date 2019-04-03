@@ -28,16 +28,13 @@ node() {
                 name: 'Thinktime'
           )
 
-        ]),pipelineTriggers([
-                     parameterizedCron('''
-                       30 11 * * * % Environment=test
-                       30 12 * * * % Environment=staging
-                   ''')
-               ]),
+        ]),
         disableConcurrentBuilds()
     ])
 
       try {
+        stage('Clean workspace')
+            deleteDir()
         stage('Build Repo')
             checkout scm
             withEnv(["APISECRET=${env.FRONT_END_SECRET}",
@@ -82,6 +79,8 @@ node() {
                   reportFiles: 'report.json.html',
                   reportName: "Load Test Report"
                 ])
+            stage('Archive reports')
+                archiveArtifacts 'report.json.html'
             stage('Clear tests')
                 sh "docker rmi -f ${docker_tag}"
                 sh "yes | docker system prune"
