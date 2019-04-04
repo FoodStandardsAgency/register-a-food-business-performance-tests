@@ -6,7 +6,7 @@
     "start": "node ./bin/www",
     "load": "./node_modules/artillery/bin/artillery run -o report.json fullapplication-test.yaml",
     "soak": "./node_modules/artillery/bin/artillery run -o report.json --overrides '{\"config\": {\"phases\": [{\"duration\": 3600, \"arrivalRate\": 5}]}}' fullapplication-test.yaml",
-    "report": "./node_modules/artillery/bin/artillery report report.json",
+    "report": "./node_modules/artillery/bin/artillery report --output report.json.html report.json",
     "xmlreport": "node json2xml.js",
     "test": "echo \"Error: no test specified\" && exit 1",
     "sonaranalysis": "grunt sonarRunner:analysis",
@@ -20,7 +20,7 @@
     "cookie-parser": "~1.4.3",
     "debug": "~2.6.9",
     "faker": "^4.1.0",
-    "grunt": "^1.0.3",
+    "grunt": "^1.0.4",
     "grunt-cli": "^1.3.1",
     "grunt-contrib-jshint": "^2.0.0",
     "grunt-sonar-runner": "github:AllSpeeds/grunt-sonar-runner#maxbuffer-fix",
@@ -38,7 +38,7 @@
     "xmlbuilder": "^10.1.0"
   },
   "dependencies": {
-    "artillery": "^1.6.0-24",
+    "artillery": "^1.6.0-27",
     "artillery-core": "^4.8.1",
     "artillery-plugin-influxdb": "^0.9.0",
     "csv-parse": "^3.1.3",
