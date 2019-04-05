@@ -56,6 +56,7 @@ node() {
         stage('Run Tests')
              switch (params.TestType) {
                  case "Baseline":
+                     sh "mkdir reports"
                      sh "docker run --mount type=bind,source=${PWD}/reports,target=/mnt ${docker_tag}"
                      break
                  case "Soak":
