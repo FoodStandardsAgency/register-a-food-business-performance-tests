@@ -56,7 +56,8 @@ node() {
         stage('Run Tests')
              switch (params.TestType) {
                  case "Baseline":
-                     sh "docker run --volume ${PWD}/reports:/mnt ${docker_tag}"
+                     sh "mkdir reports"
+                     sh "docker run --mount type=bind,source=${PWD}/reports,target=/mnt ${docker_tag}"
                      break
                  case "Soak":
                      sh "docker-compose up"
@@ -80,7 +81,7 @@ node() {
                   reportName: "Load Test Report"
                 ])
             stage('Archive reports')
-                archiveArtifacts 'report.json.html'
+                archiveArtifacts 'reports/report.json.html'
             stage('Clear tests')
                 sh "docker rmi -f ${docker_tag}"
                 sh "yes | docker system prune"
