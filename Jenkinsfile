@@ -62,8 +62,6 @@ node() {
                      sh "docker-compose up"
                      break
                     }
-         stage "Archive build"
-             archiveArtifacts artifacts: '**/*'
 
       } catch(err) {
            echo "Build failed, see logs for details"
