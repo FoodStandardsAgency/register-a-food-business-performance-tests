@@ -81,7 +81,7 @@ node() {
                   reportName: "Load Test Report"
                 ])
             stage('Archive reports')
-                archiveArtifacts 'report.json.html'
+                archiveArtifacts 'reports/report.json.html'
             stage('Clear tests')
                 sh "docker rmi -f ${docker_tag}"
                 sh "yes | docker system prune"
