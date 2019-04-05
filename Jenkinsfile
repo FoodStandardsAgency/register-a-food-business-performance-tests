@@ -71,7 +71,6 @@ node() {
        } finally {
             stage('Publish reports')
                 echo "current dir  - ${PWD}"
-                echo "report dir content  - ${ls -alh reports/}"
                 publishHTML (target: [
                   allowMissing: false,
                   alwaysLinkToLastBuild: true,
