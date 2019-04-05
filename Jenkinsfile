@@ -56,12 +56,14 @@ node() {
         stage('Run Tests')
              switch (params.TestType) {
                  case "Baseline":
-                     sh "docker run --volume ${PWD}/reports:/mnt ${docker_tag}"
+                     sh "docker run --mount type=bind,source:${PWD}/reports,target:/mnt ${docker_tag}"
                      break
                  case "Soak":
                      sh "docker-compose up"
                      break
                     }
+         stage "Archive build"
+             archiveArtifacts artifacts: '**/*'
 
       } catch(err) {
            echo "Build failed, see logs for details"
@@ -69,7 +71,7 @@ node() {
        } finally {
             stage('Publish reports')
                 echo "current dir  - ${PWD}"
-                script: 'ls -alh reports/ > reportDirContenets.txt'
+                echo "report dir content  - ${ls -alh reports/}"
                 publishHTML (target: [
                   allowMissing: false,
                   alwaysLinkToLastBuild: true,
